@@ -10,11 +10,13 @@ in whatever format wanted. Two frontends share the same pipeline core:
 
 ## Setup
 
-Requires Python >=3.13, [uv](https://docs.astral.sh/uv/). `uv sync` pulls in
-PySide6's bundled Qt too — no system Tk/Qt packages needed.
+Requires Python >=3.13, [uv](https://docs.astral.sh/uv/). PySide6 (gui mode)
+is an optional extra, not installed by default — keeps the server-only
+install (e.g. Docker) free of Qt.
 
 ```bash
-uv sync
+uv sync                # server only
+uv sync --extra gui    # + PySide6, for gui mode
 ```
 
 ## Run
@@ -24,7 +26,7 @@ uv run fastapi dev main.py            # server, dev, auto-reload
 uv run fastapi run main.py            # server, prod
 uv run main.py                        # same as above (defaults to server)
 uv run main.py server --port 9000     # server, custom port
-uv run main.py gui                    # desktop app
+uv run --extra gui main.py gui        # desktop app (needs the gui extra synced)
 ```
 
 Server mode listens on `http://localhost:8000` by default. Interactive docs

@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
 
 # Server image only — the `gui` mode (PySide6) needs a display and isn't a
-# container use case.
+# container use case. `uv sync` (no --extra) already skips the `gui` extra,
+# so PySide6/Qt never gets installed here.
 
 FROM python:3.13-slim AS builder
 

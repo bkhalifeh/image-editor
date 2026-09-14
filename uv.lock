@@ -477,9 +477,13 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "pillow" },
     { name = "pydantic" },
-    { name = "pyside6" },
     { name = "python-multipart" },
     { name = "rembg", extra = ["cpu"] },
+]
+
+[package.optional-dependencies]
+gui = [
+    { name = "pyside6" },
 ]
 
 [package.metadata]
@@ -487,10 +491,11 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.141.1" },
     { name = "pillow", specifier = ">=12.3.0" },
     { name = "pydantic", specifier = ">=2.13.5" },
-    { name = "pyside6", specifier = ">=6.11.2" },
+    { name = "pyside6", marker = "extra == 'gui'", specifier = ">=6.11.2" },
     { name = "python-multipart", specifier = ">=0.0.32" },
     { name = "rembg", extras = ["cpu"], specifier = ">=2.0.84" },
 ]
+provides-extras = ["gui"]
 
 [[package]]
 name = "imageio"

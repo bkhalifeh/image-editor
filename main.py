@@ -13,7 +13,12 @@ def main():
     args = parser.parse_args()
 
     if args.mode == "gui":
-        from app.gui import run_gui
+        try:
+            from app.gui import run_gui
+        except ImportError as exc:
+            raise SystemExit(
+                f"gui mode needs the 'gui' extra: uv sync --extra gui ({exc})"
+            )
 
         run_gui()
     else:
