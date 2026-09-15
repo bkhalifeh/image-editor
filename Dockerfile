@@ -30,6 +30,11 @@ COPY --from=builder /app/.venv /app/.venv
 COPY main.py ./
 COPY app ./app
 
+# pre-create rembg's model cache dir owned by nonroot (uid 65532): a fresh
+# named volume mounted here would otherwise be root-owned and unwritable —
+# docker seeds a new volume from whatever already exists at that path
+RUN ["/usr/bin/python", "-c", "import os; d='/home/nonroot/.rembg/models'; os.makedirs(d, exist_ok=True); [os.chown(p, 65532, 65532) for p in ('/home/nonroot/.rembg', d)]"]
+
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1
 
 EXPOSE 8000

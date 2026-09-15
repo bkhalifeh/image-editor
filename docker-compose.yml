@@ -1,0 +1,15 @@
+services:
+  server:
+    image: image-editor:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - rembg-cache:/home/nonroot/.rembg
+
+volumes:
+  rembg-cache:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data
